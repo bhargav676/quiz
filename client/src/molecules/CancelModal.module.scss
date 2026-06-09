@@ -1,0 +1,127 @@
+@import '../styles/variables';
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: $z-modal-backdrop;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-4;
+}
+
+.modal {
+  width: 100%;
+  max-width: 480px;
+  background: var(--surface-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: $radius-lg;
+  padding: $spacing-6;
+  box-shadow: var(--shadow-xl);
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-5;
+  animation: slideUp $transition-normal;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.title {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+}
+
+.body {
+  font-size: $font-size-sm;
+  color: var(--text-secondary);
+  line-height: $line-height-normal;
+}
+
+.checkboxContainer {
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-3;
+  padding: $spacing-3;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  border-radius: $radius-md;
+  cursor: pointer;
+
+  input[type='checkbox'] {
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    cursor: pointer;
+  }
+
+  span {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    color: var(--text-primary);
+    user-select: none;
+  }
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: $spacing-3;
+
+  @media (max-width: $breakpoint-sm) {
+    flex-direction: column-reverse;
+    button {
+      width: 100%;
+    }
+  }
+}
+
+.cancelBtn, .confirmBtn {
+  padding: $spacing-2 $spacing-4;
+  border-radius: $radius-md;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  cursor: pointer;
+  border: 1px solid var(--border-primary);
+  transition: all $transition-fast;
+}
+
+.cancelBtn {
+  background: var(--surface-primary);
+  color: var(--text-secondary);
+  &:hover {
+    background: var(--bg-secondary);
+  }
+}
+
+.confirmBtn {
+  background: var(--status-danger);
+  color: var(--text-inverse);
+  border-color: var(--status-danger);
+
+  &:hover:not(:disabled) {
+    background: var(--danger-700);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: var(--neutral-300);
+    border-color: var(--neutral-300);
+    color: var(--text-tertiary);
+  }
+}

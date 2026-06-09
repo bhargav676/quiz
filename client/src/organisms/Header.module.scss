@@ -1,0 +1,70 @@
+@import '../styles/variables';
+
+.header {
+  height: $navbar-height;
+  background: var(--navbar-bg);
+  border-bottom: 1px solid var(--navbar-border);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 $spacing-6;
+  position: sticky;
+  top: 0;
+  z-index: $z-sticky;
+}
+
+.menuBtn {
+  display: none;
+  background: transparent;
+  border: none;
+  font-size: $font-size-xl;
+  color: var(--text-primary);
+  cursor: pointer;
+
+  @media (max-width: $breakpoint-md) {
+    display: block;
+  }
+}
+
+.pageTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: var(--text-primary);
+}
+
+.userProfile {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+
+  .userInfo {
+    text-align: right;
+    @media (max-width: $breakpoint-sm) {
+      display: none;
+    }
+
+    .userName {
+      font-size: $font-size-sm;
+      font-weight: $font-weight-semibold;
+      color: var(--text-primary);
+    }
+    .userEmail {
+      font-size: $font-size-xs;
+      color: var(--text-tertiary);
+    }
+  }
+
+  .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--brand-primary);
+    color: var(--text-inverse);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: $font-weight-bold;
+    font-size: $font-size-sm;
+  }
+}

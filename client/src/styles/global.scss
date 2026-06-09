@@ -1,0 +1,152 @@
+// ==========================================
+// QuizArena — Global Styles
+// ==========================================
+
+@use 'variables' as *;
+@use 'themes';
+
+// ----- Google Fonts Import -----
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+// ----- CSS Reset -----
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: $font-family-primary;
+  font-size: $font-size-base;
+  font-weight: $font-weight-normal;
+  line-height: $line-height-normal;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color $transition-normal, color $transition-normal;
+}
+
+// ----- Links -----
+a {
+  color: var(--brand-primary);
+  text-decoration: none;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: var(--brand-primary-hover);
+  }
+}
+
+// ----- Buttons -----
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+// ----- Images -----
+img,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+// ----- Lists -----
+ul,
+ol {
+  list-style: none;
+}
+
+// ----- Inputs -----
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  border: none;
+  outline: none;
+  background: none;
+}
+
+// ----- Table -----
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+// ----- Headings -----
+h1, h2, h3, h4, h5, h6 {
+  font-weight: $font-weight-bold;
+  line-height: $line-height-tight;
+  color: var(--text-primary);
+}
+
+h1 { font-size: $font-size-4xl; }
+h2 { font-size: $font-size-3xl; }
+h3 { font-size: $font-size-2xl; }
+h4 { font-size: $font-size-xl; }
+h5 { font-size: $font-size-lg; }
+h6 { font-size: $font-size-base; }
+
+// ----- Paragraph -----
+p {
+  color: var(--text-secondary);
+  line-height: $line-height-relaxed;
+}
+
+// ----- Selection -----
+::selection {
+  background: var(--brand-primary);
+  color: white;
+}
+
+// ----- Scrollbar -----
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--neutral-300);
+  border-radius: $radius-full;
+
+  &:hover {
+    background: var(--neutral-400);
+  }
+}
+
+// ----- Focus Visible -----
+:focus-visible {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 2px;
+}
+
+// ----- Root Element -----
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}

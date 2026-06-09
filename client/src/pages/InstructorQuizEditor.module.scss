@@ -1,0 +1,257 @@
+@import '../styles/variables';
+
+.editorContainer {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-6;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: $spacing-4;
+
+  h1 {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: var(--text-primary);
+  }
+}
+
+.backBtn {
+  padding: $spacing-2 $spacing-4;
+  border-radius: $radius-md;
+  background: var(--surface-primary);
+  border: 1px solid var(--border-primary);
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: var(--bg-secondary);
+  }
+}
+
+// ==========================================
+// Tabs Navigation
+// ==========================================
+.tabsRow {
+  display: flex;
+  border-bottom: 2px solid var(--border-primary);
+  gap: $spacing-6;
+}
+
+.tabBtn {
+  background: transparent;
+  border: none;
+  padding: $spacing-3 0;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: var(--text-secondary);
+  cursor: pointer;
+  position: relative;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: var(--text-primary);
+  }
+
+  &.active {
+    color: var(--brand-primary);
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--brand-primary);
+    }
+  }
+}
+
+.card {
+  background: var(--surface-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: $radius-lg;
+  padding: $spacing-6;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+}
+
+// ==========================================
+// Details Form Grid
+// ==========================================
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-5;
+
+  @media (max-width: $breakpoint-md) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+
+  label {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+  }
+
+  input, select, textarea {
+    padding: $spacing-3 $spacing-4;
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: $radius-md;
+    color: var(--text-primary);
+    font-size: $font-size-sm;
+    transition: all $transition-fast;
+
+    &:focus {
+      outline: none;
+      border-color: var(--input-focus-border);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+    }
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+}
+
+// ==========================================
+// Checklist readiness
+// ==========================================
+.checklist {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  border-radius: $radius-lg;
+  padding: $spacing-4 $spacing-6;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+
+  h4 {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    margin-bottom: $spacing-1;
+  }
+}
+
+.checkItem {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  font-size: $font-size-xs;
+  color: var(--text-secondary);
+
+  &.success {
+    color: var(--status-success);
+    font-weight: $font-weight-medium;
+  }
+}
+
+// ==========================================
+// Question Builder / List
+// ==========================================
+.subCard {
+  border: 1px solid var(--border-primary);
+  border-radius: $radius-md;
+  padding: $spacing-4 $spacing-5;
+  background: var(--bg-secondary);
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+}
+
+.optionRow {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  font-size: $font-size-sm;
+
+  .correctDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--status-success);
+    margin-left: auto;
+  }
+}
+
+.inlineFormRow {
+  display: flex;
+  gap: $spacing-3;
+  align-items: flex-end;
+  flex-wrap: wrap;
+
+  @media (max-width: $breakpoint-sm) {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.saveBtn, .cancelBtn {
+  padding: $spacing-3 $spacing-5;
+  border-radius: $radius-md;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  cursor: pointer;
+  border: 1px solid var(--border-primary);
+}
+
+.saveBtn {
+  background: var(--brand-primary);
+  color: var(--text-inverse);
+  border-color: var(--brand-primary);
+
+  &:hover {
+    background: var(--brand-primary-hover);
+  }
+}
+
+.cancelBtn {
+  background: var(--surface-primary);
+  color: var(--text-secondary);
+
+  &:hover {
+    background: var(--bg-secondary);
+  }
+}
+
+.alert {
+  padding: $spacing-3 $spacing-4;
+  border-radius: $radius-md;
+  font-size: $font-size-sm;
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+
+  &.success {
+    background: var(--status-success-bg);
+    color: var(--status-success);
+    border: 1px solid rgba(34, 197, 94, 0.2);
+  }
+
+  &.danger {
+    background: var(--status-danger-bg);
+    color: var(--status-danger);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+  }
+}

@@ -1,0 +1,367 @@
+@import '../styles/variables';
+
+.dashboardContainer {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-6;
+  max-width: $content-max-width;
+  margin: 0 auto;
+  padding: $spacing-6;
+}
+
+// Stats Overview Grid
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: $spacing-5;
+}
+
+.statsCard {
+  display: flex;
+  align-items: center;
+  gap: $spacing-4;
+  padding: $spacing-5;
+  background: var(--surface-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: $radius-lg;
+  box-shadow: $shadow-sm;
+  transition: transform $transition-fast, box-shadow $transition-fast;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+
+  .icon {
+    font-size: 2rem;
+    padding: $spacing-3;
+    background: var(--bg-secondary);
+    border-radius: $radius-md;
+  }
+
+  .content {
+    h3 {
+      font-size: $font-size-2xl;
+      font-weight: $font-weight-bold;
+      color: var(--text-primary);
+      margin: 0;
+    }
+
+    p {
+      font-size: $font-size-sm;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+  }
+
+  &.live {
+    border-left: 4px solid var(--brand-primary);
+  }
+
+  &.upcoming {
+    border-left: 4px solid var(--brand-accent);
+  }
+
+  &.completed {
+    border-left: 4px solid var(--status-success);
+  }
+}
+
+// Section Headers
+.sectionHeader {
+  border-bottom: 1px solid var(--border-primary);
+  padding-bottom: $spacing-2;
+  margin-top: $spacing-4;
+
+  h2 {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: var(--text-primary);
+    margin: 0;
+  }
+}
+
+// Loader & Empty States
+.loaderContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-12;
+  gap: $spacing-4;
+  background: var(--surface-primary);
+  border-radius: $radius-lg;
+  border: 1px solid var(--border-primary);
+  color: var(--text-secondary);
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--border-primary);
+  border-top-color: var(--brand-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.emptyState {
+  padding: $spacing-8;
+  text-align: center;
+  background: var(--surface-primary);
+  border-radius: $radius-lg;
+  border: 1px dashed var(--border-primary);
+  color: var(--text-secondary);
+
+  p {
+    margin: 0;
+    font-size: $font-size-sm;
+  }
+}
+
+// Quiz Card Grids
+.quizGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: $spacing-6;
+}
+
+.quizCard {
+  background: var(--surface-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: $radius-lg;
+  box-shadow: $shadow-sm;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform $transition-fast, box-shadow $transition-fast, border-color $transition-fast;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-lg;
+  }
+}
+
+.liveQuiz {
+  border-top: 4px solid var(--brand-primary);
+
+  &:hover {
+    border-color: var(--brand-primary);
+  }
+}
+
+.upcomingQuiz {
+  border-top: 4px solid var(--brand-accent);
+
+  &:hover {
+    border-color: var(--brand-accent);
+  }
+}
+
+.cardHeader {
+  padding: $spacing-5 $spacing-5 $spacing-2 $spacing-5;
+
+  .badge {
+    display: inline-block;
+    padding: $spacing-1 $spacing-2;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-bold;
+    background: var(--status-info-bg);
+    color: var(--status-info);
+    border-radius: $radius-sm;
+    margin-bottom: $spacing-2;
+  }
+
+  .upcomingBadge {
+    display: inline-block;
+    padding: $spacing-1 $spacing-2;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-bold;
+    background: var(--status-warning-bg);
+    color: var(--status-warning);
+    border-radius: $radius-sm;
+    margin-bottom: $spacing-2;
+  }
+
+  h3 {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: var(--text-primary);
+    margin: 0;
+    line-height: $line-height-tight;
+  }
+}
+
+.cardBody {
+  padding: 0 $spacing-5 $spacing-5 $spacing-5;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+
+  .desc {
+    font-size: $font-size-sm;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: $line-height-normal;
+    flex: 1;
+  }
+}
+
+.metaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-4;
+  font-size: $font-size-xs;
+  color: var(--text-muted);
+}
+
+.cardFooter {
+  padding: $spacing-4 $spacing-5;
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-primary);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+// Button actions
+.startBtn {
+  width: 100%;
+  padding: 0.625rem 0;
+  background: var(--brand-primary);
+  color: var(--text-inverse);
+  font-weight: $font-weight-semibold;
+  border: none;
+  border-radius: $radius-md;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color $transition-fast;
+
+  &:hover {
+    background: var(--brand-primary-hover);
+  }
+}
+
+.resumeBtn {
+  width: 100%;
+  padding: 0.625rem 0;
+  background: var(--brand-accent);
+  color: var(--text-inverse);
+  font-weight: $font-weight-semibold;
+  border: none;
+  border-radius: $radius-md;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color $transition-fast;
+
+  &:hover {
+    background: var(--brand-accent-hover);
+  }
+}
+
+.countdownContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  font-size: $font-size-sm;
+}
+
+.countdownLabel {
+  color: var(--text-secondary);
+  font-weight: $font-weight-medium;
+}
+
+.countdownValue {
+  color: var(--brand-accent);
+  font-weight: $font-weight-bold;
+}
+
+// Results Table
+.resultsTableContainer {
+  background: var(--surface-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: $radius-lg;
+  box-shadow: $shadow-sm;
+  overflow-x: auto;
+}
+
+.resultsTable {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: $font-size-sm;
+
+  th,
+  td {
+    padding: $spacing-4 $spacing-5;
+    border-bottom: 1px solid var(--border-primary);
+    color: var(--text-primary);
+    white-space: nowrap;
+  }
+
+  th {
+    background: var(--bg-secondary);
+    font-weight: $font-weight-semibold;
+    color: var(--text-secondary);
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+}
+
+.quizTitleCol {
+  min-width: 200px;
+  white-space: normal !important;
+}
+
+.statusLabel {
+  display: inline-block;
+  padding: $spacing-1 $spacing-2;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-bold;
+  border-radius: $radius-sm;
+
+  &.submitted {
+    background: var(--status-success-bg);
+    color: var(--status-success);
+  }
+
+  &.autoSubmitted {
+    background: var(--status-info-bg);
+    color: var(--status-info);
+  }
+
+  &.missed {
+    background: var(--status-danger-bg);
+    color: var(--status-danger);
+  }
+}
+
+.viewResultBtn {
+  padding: $spacing-2 $spacing-4;
+  background: var(--brand-primary);
+  color: var(--text-inverse);
+  font-weight: $font-weight-semibold;
+  border: none;
+  border-radius: $radius-md;
+  cursor: pointer;
+  font-size: $font-size-xs;
+  transition: background-color $transition-fast;
+
+  &:hover {
+    background: var(--brand-primary-hover);
+  }
+}
+
+.noAction {
+  font-size: $font-size-xs;
+  color: var(--text-muted);
+}

@@ -1,0 +1,123 @@
+@import '../styles/variables';
+
+.sidebar {
+  width: $sidebar-width;
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--sidebar-border);
+  display: flex;
+  flex-direction: column;
+  transition: width $transition-normal;
+  flex-shrink: 0;
+  height: 100%;
+
+  @media (max-width: $breakpoint-md) {
+    position: fixed;
+    height: 100vh;
+    z-index: $z-sticky + 10;
+    width: $sidebar-width;
+    transform: translateX(-100%);
+    top: 0;
+    left: 0;
+
+    &.open {
+      transform: translateX(0);
+    }
+  }
+}
+
+.sidebarHeader {
+  height: $navbar-height;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 $spacing-6;
+  border-bottom: 1px solid var(--sidebar-border);
+
+  h2 {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    background: var(--brand-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+.roleBadge {
+  font-size: 10px;
+  font-weight: $font-weight-bold;
+  background: var(--brand-primary-light);
+  color: var(--brand-primary);
+  padding: $spacing-1 $spacing-2;
+  border-radius: $radius-sm;
+  text-transform: uppercase;
+}
+
+.sidebarNav {
+  flex: 1;
+  padding: $spacing-4;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-1;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  padding: $spacing-3 $spacing-4;
+  border-radius: $radius-md;
+  color: var(--text-secondary);
+  font-weight: $font-weight-medium;
+  font-size: $font-size-sm;
+  text-decoration: none;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: var(--sidebar-item-hover);
+    color: var(--text-primary);
+  }
+
+  &.active {
+    background: var(--sidebar-item-active);
+    color: var(--sidebar-item-active-text);
+    font-weight: $font-weight-semibold;
+  }
+}
+
+.sidebarFooter {
+  padding: $spacing-4;
+  border-top: 1px solid var(--sidebar-border);
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+}
+
+.themeToggleBtn, .logoutBtn {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  width: 100%;
+  padding: $spacing-3 $spacing-4;
+  border-radius: $radius-md;
+  border: none;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  cursor: pointer;
+  background: transparent;
+  transition: all $transition-fast;
+}
+
+.themeToggleBtn {
+  color: var(--text-secondary);
+  &:hover {
+    background: var(--sidebar-item-hover);
+    color: var(--text-primary);
+  }
+}
+
+.logoutBtn {
+  color: var(--status-danger);
+  &:hover {
+    background: var(--status-danger-bg);
+  }
+}

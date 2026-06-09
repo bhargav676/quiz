@@ -1,0 +1,248 @@
+@import '../styles/variables';
+
+.dashboardContainer {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-8;
+}
+
+.titleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: $spacing-4;
+
+  h1 {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+  }
+
+  p {
+    color: var(--text-secondary);
+    font-size: $font-size-sm;
+  }
+}
+
+.card {
+  background: var(--surface-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: $radius-lg;
+  padding: $spacing-6;
+  box-shadow: var(--shadow-sm);
+}
+
+.tableWrapper {
+  overflow-x: auto;
+  margin: 0 (-$spacing-6) (-$spacing-6);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: $font-size-sm;
+
+  th, td {
+    padding: $spacing-4 $spacing-6;
+    border-bottom: 1px solid var(--border-primary);
+    vertical-align: middle;
+  }
+
+  th {
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    font-weight: $font-weight-semibold;
+    text-transform: uppercase;
+    font-size: $font-size-xs;
+    letter-spacing: 0.05em;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  tr:hover td {
+    background: var(--bg-secondary);
+  }
+}
+
+.titleCell {
+  font-weight: $font-weight-bold;
+  color: var(--text-primary);
+}
+
+.inlineEditSchedule {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+
+  input[type='datetime-local'] {
+    padding: $spacing-1 $spacing-2;
+    font-size: $font-size-xs;
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: $radius-sm;
+    color: var(--text-primary);
+
+    &:focus {
+      outline: none;
+      border-color: var(--input-focus-border);
+    }
+  }
+}
+
+.iconBtn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: $spacing-1;
+  border-radius: $radius-sm;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  transition: all $transition-fast;
+
+  &:hover {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+  }
+
+  &.save {
+    color: var(--status-success);
+    &:hover {
+      background: var(--status-success-bg);
+    }
+  }
+}
+
+// ==========================================
+// Readiness Indicators
+// ==========================================
+.readinessContainer {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-1;
+}
+
+.readinessPills {
+  display: flex;
+  gap: $spacing-2;
+}
+
+.indicatorPill {
+  font-size: 10px;
+  font-weight: $font-weight-semibold;
+  padding: 2px $spacing-2;
+  border-radius: $radius-sm;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+
+  &.success {
+    background: var(--status-success-bg);
+    color: var(--status-success);
+  }
+
+  &.danger {
+    background: var(--status-danger-bg);
+    color: var(--status-danger);
+  }
+}
+
+.readinessBadge {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-bold;
+  display: inline-block;
+  padding: $spacing-1 $spacing-3;
+  border-radius: $radius-full;
+  text-transform: uppercase;
+
+  &.ready {
+    background: var(--status-success-bg);
+    color: var(--status-success);
+  }
+
+  &.draft {
+    background: var(--status-warning-bg);
+    color: var(--status-warning);
+  }
+}
+
+.statusBadge {
+  display: inline-block;
+  padding: $spacing-1 $spacing-3;
+  border-radius: $radius-full;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-bold;
+  text-transform: uppercase;
+}
+
+// ==========================================
+// Action Buttons
+// ==========================================
+.actionsCell {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  flex-wrap: wrap;
+}
+
+.actionBtn {
+  padding: $spacing-2 $spacing-3;
+  border-radius: $radius-sm;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  cursor: pointer;
+  border: 1px solid var(--border-primary);
+  background: var(--surface-primary);
+  color: var(--text-primary);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-1;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: var(--bg-secondary);
+  }
+
+  &.primary {
+    background: var(--brand-primary);
+    color: var(--text-inverse);
+    border-color: var(--brand-primary);
+    &:hover {
+      background: var(--brand-primary-hover);
+    }
+  }
+
+  &.danger {
+    background: var(--status-danger-bg);
+    color: var(--status-danger);
+    border-color: rgba(239, 68, 68, 0.2);
+    &:hover {
+      background: var(--status-danger);
+      color: var(--text-inverse);
+    }
+  }
+
+  &.success {
+    background: var(--status-success-bg);
+    color: var(--status-success);
+    border-color: rgba(34, 197, 94, 0.2);
+    &:hover {
+      background: var(--status-success);
+      color: var(--text-inverse);
+    }
+  }
+}
+
+.emptyState {
+  text-align: center;
+  padding: $spacing-12;
+  color: var(--text-tertiary);
+  font-size: $font-size-sm;
+}

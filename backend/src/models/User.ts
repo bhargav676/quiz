@@ -1,0 +1,68 @@
+import mongoose, { Schema } from 'mongoose';
+import bcrypt from 'bcrypt';
+import { IUser } from '../types';
+import { Role } from '../types/enums';
+
+const userSchema = new Schema<IUser>(
+  {
+    name: {
+      type: String,
+      required: [true, 'Name is required'],
+      trim: true,
+      minlength: [2, 'Name must be at least 2 characters'],
+      maxlength: [50, 'Name cannot exceed 50 characters'],
+    },
+    email: {
+      type: String,
+      required: [true, 'Email is required'],
+      unique: true,
+      trim: true,
+      lowercase: true,
+      match: [/^\S+@\S+\.\S+$/, 'Please provide a valid email'],
+    },
+    password: {
+      type: String,
+      required: [true, 'Password is required'],
+      minlength: [6, 'Password must be at least 6 characters'],
+      select: false,
+    },
+    role: {
+      type: String,
+      enum: Object.values(Role),
+      default: Role.PARTICIPANT,
+    },
+    isActive: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  {
+    timestamps: true,
+    toJSON: {
+      transform(_doc: unknown, ret: Record<string, unknown>) {
+        delete ret.password;
+        delete ret.__v;
+        return ret;
+      },
+    },
+  }
+);
+
+// Hash password before saving
+userSchema.pre<IUser>('save', async function () {
+  if (!this.isModified('password')) {
+    return;
+  }
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+});
+
+// Instance method to compare password
+userSchema.methods.comparePassword = async function (candidatePassword: string): Promise<boolean> {
+  return bcrypt.compare(candidatePassword, this.password);
+};
+
+// Index for faster queries
+userSchema.index({ role: 1 });
+
+export const User = mongoose.model<IUser>('User', userSchema);

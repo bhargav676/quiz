@@ -1,0 +1,14 @@
+export { default as Login } from './Login';
+export { default as AdminDashboard } from './AdminDashboard';
+export { default as QuizForm } from './QuizForm';
+export { default as QuizResults } from './QuizResults';
+export { default as AccessManagement } from './AccessManagement';
+export { default as InstructorDashboard } from './InstructorDashboard';
+export { default as InstructorQuizEditor } from './InstructorQuizEditor';
+export { default as InstructorAnalytics } from './InstructorAnalytics';
+export { default as Register } from './Register';
+export { default as ParticipantDashboard } from './ParticipantDashboard';
+export { default as TestScreen } from './TestScreen';
+export { default as PostSubmit } from './PostSubmit';
+export { default as MyResult } from './MyResult';
+export { default as DetailedResult } from './DetailedResult';

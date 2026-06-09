@@ -1,0 +1,282 @@
+@import '../styles/variables';
+
+.loadingScreen,
+.errorScreen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  gap: $spacing-4;
+  color: var(--text-primary);
+  text-align: center;
+
+  button {
+    padding: 0.625rem $spacing-6;
+    background: var(--brand-primary);
+    border: none;
+    color: var(--text-inverse);
+    font-weight: $font-weight-semibold;
+    border-radius: $radius-md;
+    cursor: pointer;
+    margin-top: $spacing-2;
+
+    &:hover {
+      background: var(--brand-primary-hover);
+    }
+  }
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid var(--border-primary);
+  border-top-color: var(--brand-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.resultsContainer {
+  max-width: $content-max-width;
+  margin: 0 auto;
+  padding: $spacing-6;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-6;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+  border-bottom: 1px solid var(--border-primary);
+  padding-bottom: $spacing-4;
+}
+
+.backBtn {
+  align-self: flex-start;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-weight: $font-weight-medium;
+  cursor: pointer;
+  padding: 0;
+  font-size: $font-size-sm;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: var(--text-primary);
+  }
+}
+
+.title {
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-bold;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+// Grid Layout
+.mainGrid {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: $spacing-6;
+
+  @media (max-width: $breakpoint-md) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Hero score card
+.heroCard {
+  background: var(--surface-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: $radius-xl;
+  padding: $spacing-8 $spacing-6;
+  box-shadow: $shadow-sm;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.progressCircleWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: $spacing-6;
+
+  svg {
+    transform: rotate(-90deg);
+  }
+}
+
+.circleBg {
+  stroke: var(--bg-secondary);
+}
+
+.circleFg {
+  transition: stroke-dashoffset 0.8s ease-out;
+}
+
+.scoreText {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.percentNumber {
+  font-size: $font-size-3xl;
+  font-weight: $font-weight-bold;
+  color: var(--text-primary);
+}
+
+.scoreRatio {
+  font-size: $font-size-xs;
+  color: var(--text-secondary);
+  margin-top: $spacing-1;
+}
+
+.performanceLabel {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: var(--text-primary);
+  margin-top: 0;
+  margin-bottom: $spacing-2;
+}
+
+.heroSubtitle {
+  font-size: $font-size-sm;
+  color: var(--text-secondary);
+  line-height: $line-height-normal;
+  margin: 0;
+}
+
+// Metrics Panel
+.metricsPanel {
+  background: var(--surface-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: $radius-xl;
+  padding: $spacing-6;
+  box-shadow: $shadow-sm;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-6;
+
+  h3 {
+    margin: 0;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: var(--text-primary);
+  }
+}
+
+.metricsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: $spacing-4;
+}
+
+.metricCard {
+  display: flex;
+  align-items: center;
+  gap: $spacing-4;
+  padding: $spacing-4;
+  border-radius: $radius-lg;
+  border: 1px solid var(--border-primary);
+
+  .metricIcon {
+    font-size: 1.5rem;
+    padding: $spacing-2;
+    border-radius: $radius-md;
+    background: var(--bg-secondary);
+  }
+
+  .metricInfo {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .metricLabel {
+    font-size: $font-size-xs;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    font-weight: $font-weight-semibold;
+    letter-spacing: 0.05em;
+  }
+
+  .metricVal {
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    color: var(--text-primary);
+  }
+
+  &.correct {
+    border-left: 4px solid var(--status-success);
+  }
+
+  &.wrong {
+    border-left: 4px solid var(--status-danger);
+  }
+
+  &.skipped {
+    border-left: 4px solid var(--neutral-400);
+  }
+
+  &.time {
+    border-left: 4px solid var(--brand-primary);
+  }
+}
+
+// Actions
+.actionRow {
+  display: flex;
+  gap: $spacing-4;
+  margin-top: $spacing-4;
+
+  @media (max-width: $breakpoint-sm) {
+    flex-direction: column;
+  }
+}
+
+.detailsBtn {
+  flex: 1;
+  padding: 0.625rem 0;
+  background: var(--brand-primary);
+  color: var(--text-inverse);
+  font-weight: $font-weight-semibold;
+  border: none;
+  border-radius: $radius-md;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color $transition-fast;
+
+  &:hover {
+    background: var(--brand-primary-hover);
+  }
+}
+
+.dashboardBtn {
+  flex: 1;
+  padding: 0.625rem 0;
+  background: transparent;
+  border: 1px solid var(--border-primary);
+  color: var(--text-primary);
+  font-weight: $font-weight-semibold;
+  border-radius: $radius-md;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color $transition-fast;
+
+  &:hover {
+    background: var(--bg-secondary);
+  }
+}

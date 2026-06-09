@@ -1,0 +1,238 @@
+@import '../styles/variables';
+
+.analyticsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-8;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: $spacing-4;
+
+  h1 {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: var(--text-primary);
+  }
+}
+
+.backBtn {
+  padding: $spacing-2 $spacing-4;
+  border-radius: $radius-md;
+  background: var(--surface-primary);
+  border: 1px solid var(--border-primary);
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: var(--bg-secondary);
+  }
+}
+
+// ==========================================
+// Chart Area
+// ==========================================
+.analyticsGrid {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: $spacing-6;
+
+  @media (max-width: $breakpoint-lg) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.chartCard {
+  background: var(--surface-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: $radius-lg;
+  padding: $spacing-6;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+
+  h3 {
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    border-bottom: 1px solid var(--border-primary);
+    padding-bottom: $spacing-3;
+  }
+}
+
+.rechartsWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 200px;
+}
+
+.metricsCol {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: $spacing-4;
+}
+
+.metricCard {
+  background: var(--surface-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: $radius-lg;
+  padding: $spacing-6;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: $spacing-1;
+
+  .label {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+  }
+
+  .value {
+    font-size: 2.25rem;
+    font-weight: $font-weight-bold;
+    color: var(--text-primary);
+    margin-top: $spacing-2;
+  }
+}
+
+// ==========================================
+// Question-by-Question breakdown progress bars
+// ==========================================
+.qBreakdownGrid {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+}
+
+.qBreakdownItem {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  border-radius: $radius-md;
+  padding: $spacing-4 $spacing-5;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+}
+
+.qTextRow {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-bold;
+  color: var(--text-primary);
+}
+
+.qStatsRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: $font-size-xs;
+  color: var(--text-secondary);
+  flex-wrap: wrap;
+  gap: $spacing-4;
+}
+
+.accuracyLabel {
+  font-weight: $font-weight-bold;
+  &.high {
+    color: var(--status-success);
+  }
+  &.mid {
+    color: var(--status-warning);
+  }
+  &.low {
+    color: var(--status-danger);
+  }
+}
+
+.progressBar {
+  width: 120px;
+  height: 8px;
+  background: var(--border-primary);
+  border-radius: $radius-full;
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: $spacing-2;
+
+  .fill {
+    height: 100%;
+    border-radius: $radius-full;
+
+    &.high {
+      background: var(--status-success);
+    }
+    &.mid {
+      background: var(--status-warning);
+    }
+    &.low {
+      background: var(--status-danger);
+    }
+  }
+}
+
+// ==========================================
+// Tables Section
+// ==========================================
+.tableCard {
+  background: var(--surface-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: $radius-lg;
+  padding: $spacing-6;
+  box-shadow: var(--shadow-sm);
+
+  h3 {
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    margin-bottom: $spacing-4;
+  }
+}
+
+.tableWrapper {
+  overflow-x: auto;
+  margin: 0 (-$spacing-6) (-$spacing-6);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: $font-size-sm;
+
+  th, td {
+    padding: $spacing-4 $spacing-6;
+    border-bottom: 1px solid var(--border-primary);
+    white-space: nowrap;
+  }
+
+  th {
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    font-weight: $font-weight-semibold;
+    text-transform: uppercase;
+    font-size: $font-size-xs;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+}
+
+.emptyState {
+  text-align: center;
+  padding: $spacing-10;
+  color: var(--text-tertiary);
+  font-size: $font-size-sm;
+}

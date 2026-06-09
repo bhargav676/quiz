@@ -1,0 +1,129 @@
+@import '../styles/variables';
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  padding: $spacing-6;
+}
+
+.card {
+  width: 100%;
+  max-width: 500px;
+  background: var(--surface-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: $radius-xl;
+  padding: $spacing-8;
+  box-shadow: $shadow-lg;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.iconCircle {
+  width: 64px;
+  height: 64px;
+  background: var(--status-success-bg);
+  color: var(--status-success);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: $spacing-6;
+}
+
+.title {
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-bold;
+  color: var(--text-primary);
+  margin-top: 0;
+  margin-bottom: $spacing-2;
+}
+
+.subtitle {
+  font-size: $font-size-sm;
+  color: var(--text-secondary);
+  line-height: $line-height-normal;
+  margin-bottom: $spacing-6;
+}
+
+.infoBox {
+  width: 100%;
+  background: var(--bg-secondary);
+  border-radius: $radius-lg;
+  padding: $spacing-5;
+  text-align: left;
+  margin-bottom: $spacing-6;
+
+  h3 {
+    margin-top: 0;
+    margin-bottom: $spacing-3;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    color: var(--text-primary);
+  }
+
+  ul {
+    margin: 0;
+    padding-left: $spacing-4;
+    font-size: $font-size-xs;
+    color: var(--text-secondary);
+    line-height: $line-height-relaxed;
+
+    li {
+      margin-bottom: $spacing-2;
+    }
+  }
+
+  a {
+    color: var(--brand-primary);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: $spacing-3;
+}
+
+.viewResultBtn {
+  width: 100%;
+  padding: 0.625rem 0;
+  background: var(--brand-primary);
+  color: var(--text-inverse);
+  font-weight: $font-weight-semibold;
+  border: none;
+  border-radius: $radius-md;
+  cursor: pointer;
+  transition: background-color $transition-fast;
+
+  &:hover {
+    background: var(--brand-primary-hover);
+  }
+}
+
+.dashboardBtn {
+  width: 100%;
+  padding: 0.625rem 0;
+  background: transparent;
+  border: 1px solid var(--border-primary);
+  color: var(--text-primary);
+  font-weight: $font-weight-semibold;
+  border-radius: $radius-md;
+  cursor: pointer;
+  transition: background-color $transition-fast;
+
+  &:hover {
+    background: var(--bg-secondary);
+  }
+}

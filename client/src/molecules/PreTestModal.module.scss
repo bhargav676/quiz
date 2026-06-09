@@ -1,0 +1,224 @@
+@import '../styles/variables';
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: $z-modal;
+  padding: $spacing-4;
+}
+
+.modalContainer {
+  width: 100%;
+  max-width: 600px;
+  background: var(--surface-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: $radius-xl;
+  box-shadow: $shadow-xl;
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+  animation: modalSlideUp 0.3s ease;
+  overflow: hidden;
+}
+
+@keyframes modalSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-5 $spacing-6;
+  border-bottom: 1px solid var(--border-primary);
+
+  h2 {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: var(--text-primary);
+    margin: 0;
+  }
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: $spacing-1;
+  line-height: 1;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: var(--text-primary);
+  }
+}
+
+.modalBody {
+  padding: $spacing-6;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-5;
+}
+
+.quizTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: var(--brand-primary);
+  margin: 0;
+}
+
+.metaInfo {
+  display: flex;
+  gap: $spacing-6;
+  background: var(--bg-secondary);
+  padding: $spacing-4;
+  border-radius: $radius-lg;
+}
+
+.metaItem {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-1;
+}
+
+.metaLabel {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.metaValue {
+  font-size: $font-size-base;
+  font-weight: $font-weight-bold;
+  color: var(--text-primary);
+}
+
+.section {
+  h4 {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    color: var(--text-primary);
+    margin-bottom: $spacing-2;
+    margin-top: 0;
+  }
+
+  ul {
+    margin: 0;
+    padding-left: $spacing-5;
+    color: var(--text-secondary);
+    font-size: $font-size-sm;
+    line-height: $line-height-relaxed;
+
+    li {
+      margin-bottom: $spacing-1;
+    }
+  }
+}
+
+.alertBox {
+  display: flex;
+  gap: $spacing-4;
+  background: var(--bg-secondary);
+  border-left: 4px solid var(--brand-primary);
+  padding: $spacing-4;
+  border-radius: 0 $radius-md $radius-md 0;
+
+  .alertIcon {
+    font-size: 1.5rem;
+    align-self: flex-start;
+  }
+
+  .alertContent {
+    h5 {
+      margin: 0 0 $spacing-1 0;
+      font-size: $font-size-sm;
+      font-weight: $font-weight-bold;
+      color: var(--text-primary);
+    }
+
+    p {
+      margin: 0;
+      font-size: $font-size-xs;
+      color: var(--text-secondary);
+      line-height: $line-height-normal;
+    }
+  }
+
+  &:nth-of-type(2) {
+    border-left-color: var(--brand-accent);
+  }
+}
+
+.modalFooter {
+  display: flex;
+  justify-content: flex-end;
+  gap: $spacing-3;
+  padding: $spacing-4 $spacing-6;
+  border-top: 1px solid var(--border-primary);
+  background: var(--bg-secondary);
+}
+
+.cancelBtn {
+  padding: 0.625rem $spacing-5;
+  background: transparent;
+  border: 1px solid var(--border-primary);
+  color: var(--text-primary);
+  font-weight: $font-weight-medium;
+  border-radius: $radius-md;
+  cursor: pointer;
+  transition: background-color $transition-fast;
+
+  &:hover:not(:disabled) {
+    background: var(--border-primary);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.startBtn {
+  padding: 0.625rem $spacing-6;
+  background: var(--brand-primary);
+  border: none;
+  color: var(--text-inverse);
+  font-weight: $font-weight-semibold;
+  border-radius: $radius-md;
+  cursor: pointer;
+  transition: background-color $transition-fast, transform $transition-fast;
+
+  &:hover:not(:disabled) {
+    background: var(--brand-primary-hover);
+    transform: translateY(-1px);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}

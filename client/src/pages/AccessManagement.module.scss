@@ -1,0 +1,119 @@
+@import '../styles/variables';
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-6;
+}
+
+.titleSection {
+  h1 {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: var(--text-primary);
+    margin-bottom: $spacing-1;
+  }
+  p {
+    color: var(--text-secondary);
+    font-size: $font-size-sm;
+  }
+}
+
+.card {
+  background: var(--surface-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: $radius-lg;
+  padding: $spacing-8;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-6;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-5;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+
+  label {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  input {
+    padding: $spacing-3 $spacing-4;
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: $radius-md;
+    color: var(--text-primary);
+    font-size: $font-size-sm;
+    transition: all $transition-fast;
+
+    &:focus {
+      outline: none;
+      border-color: var(--input-focus-border);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+    }
+
+    &::placeholder {
+      color: var(--input-placeholder);
+    }
+  }
+}
+
+.submitBtn {
+  padding: $spacing-3 $spacing-4;
+  background: var(--brand-primary);
+  color: var(--text-inverse);
+  font-weight: $font-weight-semibold;
+  border: none;
+  border-radius: $radius-md;
+  cursor: pointer;
+  transition: background-color $transition-fast;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: $spacing-2;
+
+  &:hover:not(:disabled) {
+    background: var(--brand-primary-hover);
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+.alert {
+  border-radius: $radius-md;
+  padding: $spacing-4;
+  font-size: $font-size-sm;
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-3;
+  line-height: $line-height-normal;
+
+  &.success {
+    background: var(--status-success-bg);
+    border: 1px solid rgba(34, 197, 94, 0.2);
+    color: var(--status-success);
+  }
+
+  &.error {
+    background: var(--status-danger-bg);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    color: var(--status-danger);
+  }
+}
