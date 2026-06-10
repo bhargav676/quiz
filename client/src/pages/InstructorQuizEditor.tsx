@@ -238,6 +238,7 @@ const InstructorQuizEditor: React.FC = () => {
   const { quiz, questions, participants } = quizRes.data;
   const isCancelled = quiz.status === QuizStatus.CANCELLED;
   const isCompleted = quiz.status === QuizStatus.COMPLETED;
+  const canEdit = quiz.status === QuizStatus.DRAFT || quiz.status === QuizStatus.SCHEDULED;
 
   // Determine readiness
   const hasQuestions = questions.length > 0;
@@ -248,7 +249,9 @@ const InstructorQuizEditor: React.FC = () => {
     <div className={styles.editorContainer}>
       <div className={styles.headerRow}>
         <div>
-          <h1 style={{ marginBottom: '4px' }}>Edit Assessment Draft</h1>
+          <h1 style={{ marginBottom: '4px' }}>
+            {canEdit ? 'Edit Assessment Draft' : 'View Assessment Details'}
+          </h1>
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem' }}>
             Current Status: <strong>{quiz.status}</strong>
           </p>
@@ -307,7 +310,7 @@ const InstructorQuizEditor: React.FC = () => {
                   type="text"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  disabled={isUpdateLoading || isCancelled}
+                  disabled={isUpdateLoading || !canEdit}
                   required
                 />
               </div>
@@ -319,7 +322,7 @@ const InstructorQuizEditor: React.FC = () => {
                   min="1"
                   value={duration}
                   onChange={(e) => setDuration(e.target.value)}
-                  disabled={isUpdateLoading || isCancelled}
+                  disabled={isUpdateLoading || !canEdit}
                   required
                 />
               </div>
@@ -330,7 +333,7 @@ const InstructorQuizEditor: React.FC = () => {
                   type="datetime-local"
                   value={scheduleTime}
                   onChange={(e) => setScheduleTime(e.target.value)}
-                  disabled={isUpdateLoading || isCancelled}
+                  disabled={isUpdateLoading || !canEdit}
                   required
                 />
               </div>
@@ -340,7 +343,7 @@ const InstructorQuizEditor: React.FC = () => {
                 <select
                   value={questionType}
                   onChange={(e) => setQuestionType(e.target.value as QuestionType)}
-                  disabled={isUpdateLoading || isCancelled}
+                  disabled={isUpdateLoading || !canEdit}
                 >
                   <option value={QuestionType.SINGLE_SELECT}>Single Choice (Radio)</option>
                   <option value={QuestionType.MULTI_SELECT}>Multiple Choice (Checkbox)</option>
@@ -353,11 +356,11 @@ const InstructorQuizEditor: React.FC = () => {
               <textarea
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                disabled={isUpdateLoading || isCancelled}
+                disabled={isUpdateLoading || !canEdit}
               />
             </div>
 
-            {!isCancelled && !isCompleted && (
+            {!isCancelled && !isCompleted && canEdit && (
               <button
                 type="submit"
                 className={styles.saveBtn}
@@ -436,7 +439,7 @@ const InstructorQuizEditor: React.FC = () => {
       {activeTab === 'questions' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           {/* CSV Upload Section */}
-          {!isCancelled && !isCompleted && (
+          {!isCancelled && !isCompleted && canEdit && (
             <div className={styles.card}>
               <h3>CSV Questions Uploader</h3>
               <CSVUploader
@@ -447,7 +450,7 @@ const InstructorQuizEditor: React.FC = () => {
           )}
 
           {/* Manual Entry Section */}
-          {!isCancelled && !isCompleted && (
+          {!isCancelled && !isCompleted && canEdit && (
             <div className={styles.card}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <h3>Manual Question Builder</h3>
@@ -561,7 +564,7 @@ const InstructorQuizEditor: React.FC = () => {
       {activeTab === 'participants' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           {/* Add Inline & CSV Upload wrappers */}
-          {!isCancelled && !isCompleted && (
+          {!isCancelled && !isCompleted && canEdit && (
             <div className={styles.formGrid}>
               <form onSubmit={handleAddParticipantSubmit} className={styles.card}>
                 <h3>Inline Assign Participant</h3>

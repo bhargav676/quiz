@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { useGetDashboardStatsQuery, useGetAdminQuizzesQuery } from '../store';
 import styles from './AdminDashboard.module.scss';
 import { QuizStatus } from '../types';
-import { Loader } from '../atoms';
 
 const AdminDashboard: React.FC = () => {
   const { data: statsData, isLoading: statsLoading, error: statsError } = useGetDashboardStatsQuery(undefined);
@@ -13,7 +12,12 @@ const AdminDashboard: React.FC = () => {
   const hasError = statsError || quizzesError;
 
   if (isLoading) {
-    return <Loader message="Loading dashboard statistics..." />;
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
+        <div style={{ border: '4px solid var(--border-primary)', borderTopColor: 'var(--brand-primary)', borderRadius: '50%', width: '40px', height: '40px', animation: 'spin 1s linear infinite' }}></div>
+        <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+      </div>
+    );
   }
 
   if (hasError) {

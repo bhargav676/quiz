@@ -75,14 +75,14 @@
 // ----- Dark Theme -----
 [data-theme='dark'] {
   // Background
-  --bg-primary: #0f172a;
-  --bg-secondary: #1e293b;
+  --bg-primary: #1a1a1e;
+  --bg-secondary: #141417;
   --bg-tertiary: #334155;
   --bg-accent: #1e293b;
 
   // Surface
-  --surface-primary: #1e293b;
-  --surface-secondary: #0f172a;
+  --surface-primary: #1a1a1e;
+  --surface-secondary: ##1a1a1e;
   --surface-elevated: #334155;
 
   // Text
@@ -92,8 +92,8 @@
   --text-inverse: #0f172a;
 
   // Border
-  --border-primary: #334155;
-  --border-secondary: #475569;
+  --border-primary: #2C2C2A;
+  --border-secondary: #2C2C2A;
   --border-focus: #60a5fa;
 
   // Brand
@@ -121,15 +121,15 @@
   --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
 
   // Sidebar
-  --sidebar-bg: #1e293b;
-  --sidebar-border: #334155;
+  --sidebar-bg: #1a1a1e;
+  --sidebar-border: #2C2C2A;
   --sidebar-item-hover: #334155;
   --sidebar-item-active: rgba(59, 130, 246, 0.1);
   --sidebar-item-active-text: #60a5fa;
 
   // Navbar
-  --navbar-bg: rgba(15, 23, 42, 0.8);
-  --navbar-border: #334155;
+  --navbar-bg: #1a1a1e;
+  --navbar-border: #2C2C2A;
 
   // Input
   --input-bg: #1e293b;
