@@ -18,9 +18,9 @@ import { Role } from '../types/enums';
 
 const router = Router();
 
-// Protect all instructor routes to logged-in users with INSTRUCTOR role
+// Protect all instructor routes to logged-in users with INSTRUCTOR or ADMIN roles
 router.use(authMiddleware);
-router.use(roleMiddleware([Role.INSTRUCTOR]));
+router.use(roleMiddleware([Role.INSTRUCTOR, Role.ADMIN]));
 
 router.get('/quizzes', getInstructorQuizzes);
 router.post('/quizzes', createInstructorQuiz);

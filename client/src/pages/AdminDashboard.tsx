@@ -1,12 +1,35 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useGetDashboardStatsQuery, useGetAdminQuizzesQuery } from '../store';
+import { useNavigate, Link } from 'react-router-dom';
+import { useGetDashboardStatsQuery, useGetAdminQuizzesQuery, useCreateInstructorQuizMutation } from '../store';
 import styles from './AdminDashboard.module.scss';
 import { QuizStatus } from '../types';
+import { Button } from '../atoms';
 
 const AdminDashboard: React.FC = () => {
+  const navigate = useNavigate();
   const { data: statsData, isLoading: statsLoading, error: statsError } = useGetDashboardStatsQuery(undefined);
   const { data: quizzesData, isLoading: quizzesLoading, error: quizzesError } = useGetAdminQuizzesQuery(undefined);
+  const [createQuiz, { isLoading: isCreating }] = useCreateInstructorQuizMutation();
+
+  const handleCreateQuiz = async () => {
+    try {
+      const tomorrow = new Date(Date.now() + 24 * 60 * 60 * 1000);
+      const tzoffset = tomorrow.getTimezoneOffset() * 60000;
+      const formattedTomorrow = new Date(tomorrow.getTime() - tzoffset).toISOString().slice(0, 16);
+
+      const res = await createQuiz({
+        title: 'New Quiz Draft',
+        duration: 30,
+        scheduleTime: formattedTomorrow,
+        questionType: 'SINGLE_SELECT',
+      }).unwrap();
+
+      if (res.success && res.data) {
+        navigate(`/admin/quizzes/${res.data.id}/edit`);
+      }
+    } catch (err) {
+      alert('Failed to create quiz draft.');
+    }
+  };
 
   const isLoading = statsLoading || quizzesLoading;
   const hasError = statsError || quizzesError;
@@ -35,9 +58,9 @@ const AdminDashboard: React.FC = () => {
 
   const quizzes = quizzesData?.data || [];
 
-  // Filter quizzes that are upcoming (Scheduled) or live (Live)
+  // Filter quizzes that are upcoming (Scheduled), live (Live), or draft (Draft)
   const activeQuizzesList = quizzes.filter(
-    (q) => q.status === QuizStatus.SCHEDULED || q.status === QuizStatus.LIVE
+    (q: any) => q.status === QuizStatus.SCHEDULED || q.status === QuizStatus.LIVE || q.status === QuizStatus.DRAFT
   );
 
   const formatDate = (dateStr: string | Date) => {
@@ -141,9 +164,14 @@ const AdminDashboard: React.FC = () => {
       <div>
         <div className={styles.sectionTitle}>
           <h2>Active & Scheduled Quizzes</h2>
-          <Link to="/admin/quizzes/create" className={styles.actionBtn} style={{ background: 'var(--brand-primary)', color: 'var(--text-inverse)', borderColor: 'var(--brand-primary)' }}>
-            ➕ Create New Quiz
-          </Link>
+          <Button
+            variant="primary"
+            className={styles.actionBtn}
+            onClick={handleCreateQuiz}
+            disabled={isCreating}
+          >
+            {isCreating ? 'Creating...' : '➕ Create New Quiz'}
+          </Button>
         </div>
         
         <div className={styles.card}>
@@ -172,8 +200,16 @@ const AdminDashboard: React.FC = () => {
                       <td>{quiz.questionType === 'SINGLE_SELECT' ? 'Single Choice' : 'Multiple Choice'}</td>
                       <td>
                         <span className={styles.badge} style={{
-                          background: quiz.status === 'LIVE' ? 'var(--status-success-bg)' : 'var(--status-info-bg)',
-                          color: quiz.status === 'LIVE' ? 'var(--status-success)' : 'var(--status-info)',
+                          background: quiz.status === 'LIVE'
+                            ? 'var(--status-success-bg)'
+                            : quiz.status === 'DRAFT'
+                            ? 'var(--status-warning-bg)'
+                            : 'var(--status-info-bg)',
+                          color: quiz.status === 'LIVE'
+                            ? 'var(--status-success)'
+                            : quiz.status === 'DRAFT'
+                            ? 'var(--status-warning)'
+                            : 'var(--status-info)',
                         }}>
                           {quiz.status}
                         </span>

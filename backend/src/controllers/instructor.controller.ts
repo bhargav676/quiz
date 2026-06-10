@@ -30,6 +30,15 @@ const parseCSVBuffer = (buffer: Buffer): Promise<any[]> => {
   });
 };
 
+// Helper to verify if a user has access to a quiz
+const hasQuizAccess = async (quiz: any, userId: string | undefined, userRole: string): Promise<boolean> => {
+  if (userRole === Role.ADMIN) return true;
+  if (!userId) return false;
+  if (quiz.createdBy.toString() === userId) return true;
+  const creator = await User.findById(quiz.createdBy);
+  return creator?.role === Role.ADMIN;
+};
+
 // GET /api/instructor/quizzes
 export const getInstructorQuizzes = asyncHandler(async (req: AuthRequest, res: Response) => {
   const instructorId = req.user?.id;
@@ -41,7 +50,20 @@ export const getInstructorQuizzes = asyncHandler(async (req: AuthRequest, res: R
   // Update scheduled quizzes status dynamically
   await updateQuizStatuses();
 
-  const quizzes = await Quiz.find({ createdBy: new mongoose.Types.ObjectId(instructorId) }).sort({ createdAt: -1 });
+  let query: any = { createdBy: new mongoose.Types.ObjectId(instructorId) };
+  if (req.user?.role === Role.ADMIN) {
+    query = {};
+  } else {
+    const admins = await User.find({ role: Role.ADMIN }, '_id');
+    const adminIds = admins.map(admin => admin._id);
+    query = {
+      $or: [
+        { createdBy: new mongoose.Types.ObjectId(instructorId) },
+        { createdBy: { $in: adminIds } }
+      ]
+    };
+  }
+  const quizzes = await Quiz.find(query).sort({ createdAt: -1 });
 
   const quizzesWithReadiness = await Promise.all(
     quizzes.map(async (quiz) => {
@@ -116,7 +138,7 @@ export const getInstructorQuizById = asyncHandler(async (req: AuthRequest, res: 
   }
 
   // Verify ownership
-  if (quiz.createdBy.toString() !== instructorId) {
+  if (!(await hasQuizAccess(quiz, instructorId, req.user?.role || ''))) {
     return ApiResponse.forbidden(res, 'Access denied: you do not own this quiz');
   }
 
@@ -157,7 +179,7 @@ export const updateInstructorQuiz = asyncHandler(async (req: AuthRequest, res: R
     return ApiResponse.notFound(res, 'Quiz not found');
   }
 
-  if (quiz.createdBy.toString() !== instructorId) {
+  if (!(await hasQuizAccess(quiz, instructorId, req.user?.role || ''))) {
     return ApiResponse.forbidden(res, 'Access denied');
   }
 
@@ -194,7 +216,7 @@ export const publishQuiz = asyncHandler(async (req: AuthRequest, res: Response) 
     return ApiResponse.notFound(res, 'Quiz not found');
   }
 
-  if (quiz.createdBy.toString() !== instructorId) {
+  if (!(await hasQuizAccess(quiz, instructorId, req.user?.role || ''))) {
     return ApiResponse.forbidden(res, 'Access denied');
   }
 
@@ -235,7 +257,7 @@ export const cancelInstructorQuiz = asyncHandler(async (req: AuthRequest, res: R
     return ApiResponse.notFound(res, 'Quiz not found');
   }
 
-  if (quiz.createdBy.toString() !== instructorId) {
+  if (!(await hasQuizAccess(quiz, instructorId, req.user?.role || ''))) {
     return ApiResponse.forbidden(res, 'Access denied');
   }
 
@@ -267,7 +289,7 @@ export const addQuestionsManual = asyncHandler(async (req: AuthRequest, res: Res
     return ApiResponse.notFound(res, 'Quiz not found');
   }
 
-  if (quiz.createdBy.toString() !== instructorId) {
+  if (!(await hasQuizAccess(quiz, instructorId, req.user?.role || ''))) {
     return ApiResponse.forbidden(res, 'Access denied');
   }
 
@@ -305,7 +327,7 @@ export const uploadQuestionsCSV = asyncHandler(async (req: AuthRequest, res: Res
     return ApiResponse.notFound(res, 'Quiz not found');
   }
 
-  if (quiz.createdBy.toString() !== instructorId) {
+  if (!(await hasQuizAccess(quiz, instructorId, req.user?.role || ''))) {
     return ApiResponse.forbidden(res, 'Access denied');
   }
 
@@ -370,7 +392,7 @@ export const addParticipantsManual = asyncHandler(async (req: AuthRequest, res: 
     return ApiResponse.notFound(res, 'Quiz not found');
   }
 
-  if (quiz.createdBy.toString() !== instructorId) {
+  if (!(await hasQuizAccess(quiz, instructorId, req.user?.role || ''))) {
     return ApiResponse.forbidden(res, 'Access denied');
   }
 
@@ -435,7 +457,7 @@ export const uploadParticipantsCSV = asyncHandler(async (req: AuthRequest, res: 
     return ApiResponse.notFound(res, 'Quiz not found');
   }
 
-  if (quiz.createdBy.toString() !== instructorId) {
+  if (!(await hasQuizAccess(quiz, instructorId, req.user?.role || ''))) {
     return ApiResponse.forbidden(res, 'Access denied');
   }
 
@@ -515,7 +537,7 @@ export const getQuizAnalytics = asyncHandler(async (req: AuthRequest, res: Respo
     return ApiResponse.notFound(res, 'Quiz not found');
   }
 
-  if (quiz.createdBy.toString() !== instructorId) {
+  if (!(await hasQuizAccess(quiz, instructorId, req.user?.role || ''))) {
     return ApiResponse.forbidden(res, 'Access denied');
   }
 

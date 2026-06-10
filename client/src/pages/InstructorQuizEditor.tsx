@@ -9,6 +9,7 @@ import {
   useUploadQuestionsCSVMutation,
   useAddParticipantsMutation,
   useUploadParticipantsCSVMutation,
+  useAppSelector,
 } from '../store';
 import { QuestionType, QuizStatus } from '../types';
 import { CancelModal } from '../molecules/CancelModal';
@@ -33,6 +34,8 @@ const defaultOptions = () => [
 const InstructorQuizEditor: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { user } = useAppSelector((state) => state.auth);
+  const dashboardPath = user?.role === 'ADMIN' ? '/admin/dashboard' : '/instructor/dashboard';
 
   // Active Tab
   const [activeTab, setActiveTab] = useState<Tab>('details');
@@ -130,7 +133,7 @@ const InstructorQuizEditor: React.FC = () => {
     try {
       await cancelQuiz(id!).unwrap();
       setIsCancelModalOpen(false);
-      navigate('/instructor/dashboard');
+      navigate(dashboardPath);
     } catch (err: any) {
       setAlertError(err?.data?.message || err?.message || 'Failed to cancel quiz.');
       setIsCancelModalOpen(false);
@@ -256,7 +259,7 @@ const InstructorQuizEditor: React.FC = () => {
             Current Status: <strong>{quiz.status}</strong>
           </p>
         </div>
-        <Link to="/instructor/dashboard" className={styles.backBtn}>
+        <Link to={dashboardPath} className={styles.backBtn}>
           Back to Dashboard
         </Link>
       </div>

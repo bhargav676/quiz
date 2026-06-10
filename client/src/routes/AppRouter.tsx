@@ -107,7 +107,7 @@ export const AppRouter: React.FC = () => {
         <Route element={<MainLayout />}>
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/quizzes/create" element={<QuizForm />} />
-          <Route path="/admin/quizzes/:id/edit" element={<QuizForm />} />
+          <Route path="/admin/quizzes/:id/edit" element={<InstructorQuizEditor />} />
           <Route path="/admin/quizzes/:id/results" element={<QuizResults />} />
           <Route path="/admin/access" element={<AccessManagement />} />
         </Route>
