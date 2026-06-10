@@ -9,7 +9,7 @@ import {
 } from '../store';
 import { QuizStatus } from '../types';
 import { CancelModal } from '../molecules/CancelModal';
-import { Loader } from '../atoms';
+import { Loader, Button, Badge } from '../atoms';
 import styles from './InstructorDashboard.module.scss';
 
 const InstructorDashboard: React.FC = () => {
@@ -124,9 +124,9 @@ const InstructorDashboard: React.FC = () => {
           <h1>Instructor Dashboard</h1>
           <p>Create, update, and manage your assessments and results.</p>
         </div>
-        <button className={styles.actionBtn} onClick={handleCreateQuiz} disabled={isCreating} style={{ background: 'var(--brand-primary)', color: 'var(--text-inverse)', borderColor: 'var(--brand-primary)' }}>
+        <Button variant="primary" className={styles.actionBtn} onClick={handleCreateQuiz} disabled={isCreating}>
           {isCreating ? 'Creating...' : '➕ Create Assessment Draft'}
-        </button>
+        </Button>
       </div>
 
       <div className={styles.card}>
@@ -226,33 +226,22 @@ const InstructorDashboard: React.FC = () => {
                         </div>
                       </td>
                       <td>
-                        <span
+                        <Badge
+                          variant={
+                            isLive
+                              ? 'success'
+                              : isScheduled
+                              ? 'info'
+                              : isCompleted
+                              ? 'neutral'
+                              : isCancelled
+                              ? 'danger'
+                              : 'warning'
+                          }
                           className={styles.statusBadge}
-                          style={{
-                            background:
-                              isLive
-                                ? 'var(--status-success-bg)'
-                                : isScheduled
-                                ? 'var(--status-info-bg)'
-                                : isCompleted
-                                ? 'var(--bg-tertiary)'
-                                : isCancelled
-                                ? 'var(--status-danger-bg)'
-                                : 'var(--status-warning-bg)',
-                            color:
-                              isLive
-                                ? 'var(--status-success)'
-                                : isScheduled
-                                ? 'var(--status-info)'
-                                : isCompleted
-                                ? 'var(--text-secondary)'
-                                : isCancelled
-                                ? 'var(--status-danger)'
-                                : 'var(--status-warning)',
-                          }}
                         >
                           {quiz.status}
-                        </span>
+                        </Badge>
                       </td>
                       <td>{quiz.attemptsCount || 0} attempts</td>
                       <td className={styles.actionsCell}>
@@ -263,23 +252,25 @@ const InstructorDashboard: React.FC = () => {
                         )}
 
                         {isDraft && quiz.readiness.isReady && (
-                          <button
-                            className={`${styles.actionBtn} ${styles.success}`}
+                          <Button
+                            variant="success"
+                            className={styles.actionBtn}
                             onClick={() => handlePublish(quiz.id)}
                             disabled={isPublishing}
                           >
                             🚀 Publish
-                          </button>
+                          </Button>
                         )}
 
                         {(isDraft || isScheduled || isLive) && (
-                          <button
-                            className={`${styles.actionBtn} ${styles.danger}`}
+                          <Button
+                            variant="danger"
+                            className={styles.actionBtn}
                             onClick={() => handleOpenCancelModal(quiz.id)}
                             disabled={isCancelling}
                           >
                             🚫 Cancel
-                          </button>
+                          </Button>
                         )}
 
                         {isCompleted && (

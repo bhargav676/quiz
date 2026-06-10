@@ -1,0 +1,28 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+.logoutBtn {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  width: 100%;
+  padding: $spacing-3 $spacing-4;
+  font-family: $font-family-primary;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: var(--status-danger);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: $radius-lg;
+  cursor: pointer;
+  @include transition(background-color, border-color, transform);
+
+  &:hover {
+    background-color: var(--status-danger-bg);
+    border-color: rgba(239, 68, 68, 0.1);
+  }
+
+  svg {
+    flex-shrink: 0;
+  }
+}

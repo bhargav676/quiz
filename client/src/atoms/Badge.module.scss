@@ -1,0 +1,43 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: $spacing-1 $spacing-2;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  border-radius: $radius-full;
+  line-height: 1;
+  text-transform: capitalize;
+}
+
+.success {
+  background-color: var(--status-success-bg);
+  color: var(--status-success);
+}
+
+.warning {
+  background-color: var(--status-warning-bg);
+  color: var(--status-warning);
+}
+
+.danger {
+  background-color: var(--status-danger-bg);
+  color: var(--status-danger);
+}
+
+.info {
+  background-color: var(--status-info-bg);
+  color: var(--status-info);
+}
+
+.neutral {
+  background-color: var(--bg-tertiary);
+  color: var(--text-secondary);
+}
+
+.accent {
+  background-color: var(--bg-accent);
+  color: var(--brand-accent);
+}
